@@ -1,15 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
-using Template.Models;
+using University.Models;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Template.Controllers
+namespace University.Controllers
 {
-  public class ParentsController : Controller
+  public class ClassesController : Controller
   {
-    private readonly TemplateContext _db;
-    public ParentsController(TemplateContext db)
+    private readonly UniversityContext _db;
+    public ClassesController(UniversityContext db)
     {
       _db = db;
     }

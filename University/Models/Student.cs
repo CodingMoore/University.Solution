@@ -1,12 +1,12 @@
 using System;
 
-namespace Template.Models
+namespace University.Models
 {
-  public class Child
+  public class Student
   {
-    public int ChildId { get; set; }
+    public int StudentId { get; set; }
     public string Description { get; set; }
-    public int ParentId { get; set; }
-    public virtual Parent Parent { get; set; }
+    public int ClassId { get; set; }
+    public virtual Class Class { get; set; }
   }
 }  

@@ -1,16 +1,16 @@
 using System.Collections.Generic;
 
-namespace Template.Models
+namespace University.Models
 {
-    public class Parent
+    public class Class
     {
-        public Parent()
+        public Class()
         {
-            this.Childs = new HashSet<Child>();
+            this.Students = new HashSet<ClassStudent>();
         }
 
-        public int ParentId { get; set; }
-        public string Name { get; set; }
-        public virtual ICollection<Child> Childs { get; set; }
+        public int ClassId { get; set; }
+        public string NameOfClass { get; set; }
+        public virtual ICollection<ClassStudent> Students { get; set; }
     }
 }

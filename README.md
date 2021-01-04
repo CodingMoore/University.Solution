@@ -54,9 +54,10 @@ There are no known bugs
 * C#
 * .NET Core
 ## **Authors and Contributors**
-Authored by: Randel Moore, Ryland Adamps, Svea Wade, Sarah Gilbert
+Authored by: Randel Moore, Ryland Adams, Svea Wade, Sarah Gilbert
 ## **Contact**
 RMGit.it@gmail.com
+Rylandadams@yahoo.com
 ## **License**
 
 GPLv3
