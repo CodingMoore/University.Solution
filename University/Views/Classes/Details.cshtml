@@ -1,0 +1,28 @@
+@{
+  Layout = "_Layout";
+}
+
+@model University.Models.Class;
+
+<h2>Class Details</h2>
+<hr />
+<h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>
+
+@if(@Model.Students.Count == 0)
+{
+  <p>This class does not contain any students</p>
+}
+else
+{
+  <h4>Students the class contains:</h4>
+  <ul>
+  @foreach(var join in Model.Students)
+  {
+    <li>@join.Students.Description</li>
+  }
+  </ul>
+}
+
+<p>@Html.ActionLink("Back to classes", "Index")</p>
+<p>@Html.ActionLink("Edit Class", "Edit", new { id = Model.ClassId })</p>
+<p>@Html.ActionLink("Delete Class", "Delete", new { id = Model.ClassId })</p>

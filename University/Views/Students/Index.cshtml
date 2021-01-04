@@ -5,17 +5,17 @@
 @using University.Models;
 @model List<University.Models.Classes>;
 
-@* <h1>Childs</h1>
+<h1>Students</h1>
 
 @if (@Model.Count == 0)
 {
-  <h3>No items have been added yet!</h3>
+  <h3>No students have been added yet!</h3>
 } 
 
-@foreach (Child child in Model)
+@foreach (Student student in Model)
 {
-  <li>@Html.ActionLink($"{child.Description}", "Details", new { id = child.ChildId }) | @child.Parent.Name</li>
+  <li>@Html.ActionLink($"{student.StudentName}", "Student Name", new { id = student.StudentId }) | @student.Class.ClassName</li>
 }
 
-<p>@Html.ActionLink("Add new child", "Create")</p>
-<p>@Html.ActionLink("Home", "Index", "Home")</p> *@
+<p>@Html.ActionLink("Add new student", "Create")</p>
+<p>@Html.ActionLink("Home", "Index", "Home")</p>

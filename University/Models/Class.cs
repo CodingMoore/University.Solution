@@ -10,7 +10,7 @@ namespace University.Models
         }
 
         public int ClassId { get; set; }
-        public string NameOfClass { get; set; }
+        public string ClassName { get; set; }
         public virtual ICollection<ClassStudent> Students { get; set; }
     }
 }
