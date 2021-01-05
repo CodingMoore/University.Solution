@@ -39,11 +39,7 @@ Install dotnet script with the following terminal command dotnet tool install:
 
 <code>dotnet-script</code>
 
-**My SQL** 
-
-1) Download and install [MySQL Community Server](https://dev.mysql.com/downloads/mysql/)
- 
-2) Download and install [MySQL Workbench](https://dev.mysql.com/downloads/workbench/)
+**My SQL Installation Below** 
 
 **Windows 10 -**
 
@@ -89,7 +85,7 @@ Next, follow along with the Installer until you reach the Configuration page. On
 
 1) Use Legacy Password Encryption.
 
-2)  Set password to something you will remember.
+2) Set password to something you will remember.
 
 3) Click Finish.
 

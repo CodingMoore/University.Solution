@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace University.Controllers
 {
-  public class CoursesController : Controller
+  public class CoursesController : Controller // allows CourseController to operate as a Controller
   {
-    private readonly UniversityContext _db;
-    public CoursesController(UniversityContext db)
+    private readonly UniversityContext _db; // Defining the Database as University
+    public CoursesController(UniversityContext db) //constructor for the controller 
     {
       _db = db;
     }
@@ -35,21 +35,21 @@ namespace University.Controllers
 
     public ActionResult Details(int id)
     {
-      var thisCourse = _db.Courses
-          .Include(course => course.Students)
-          .ThenInclude(join => join.Student)
-          .FirstOrDefault(course => course.CourseId == id);
+      var thisCourse = _db.Courses //return course name and id 
+          .Include(course => course.Students) //find students(JoinEntries) related to the course
+          .ThenInclude(join => join.Student) //With all join entries add the related student 
+          .FirstOrDefault(course => course.CourseId == id); // find the course that matches the ID
       return View(thisCourse);
     }
 
     public ActionResult Edit(int id)
     {
-      var thisCourse = _db.Courses.FirstOrDefault(course => course.CourseId == id);
+      var thisCourse = _db.Courses.FirstOrDefault(course => course.CourseId == id); // finds the first match and assigns it to "thisCourse".
       return  View(thisCourse);
     }
 
     [HttpPost]
-    public ActionResult Edit(Course course)
+    public ActionResult Edit(Course course) //course is an object that contains all properties, not just the ID
     {
       _db.Entry(course).State = EntityState.Modified;
       _db.SaveChanges();
