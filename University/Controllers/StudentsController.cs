@@ -79,6 +79,7 @@ namespace University.Controllers
       ViewBag.CourseId = new SelectList(_db.Courses, "CourseId", "CourseName");
       return View(thisStudent);
     }
+    
     [HttpPost]
     public ActionResult AddCourse(Student student, int CourseId)
     {
@@ -113,5 +114,6 @@ namespace University.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+
   }
 }
