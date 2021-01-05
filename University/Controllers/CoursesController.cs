@@ -6,17 +6,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace University.Controllers
 {
-  public class ClassesController : Controller
+  public class CoursesController : Controller
   {
     private readonly UniversityContext _db;
-    public ClassesController(UniversityContext db)
+    public CoursesController(UniversityContext db)
     {
       _db = db;
     }
 
     public ActionResult Index()
     {
-      List<Class> model = _db.Categories.University();
+      List<Course> model = _db.Courses.ToList();
       return View(model);
     }
 
@@ -26,47 +26,47 @@ namespace University.Controllers
     }
 
     [HttpPost]
-    public ActionResult Create(Class class)
+    public ActionResult Create(Course course)
     {
-      _db.Classes.Add(class);
+      _db.Courses.Add(course);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
 
     public ActionResult Details(int id)
     {
-      var thisClass = _db.Classes
-          .Include(class => class.Students)
+      var thisCourse = _db.Courses
+          .Include(course => course.Students)
           .ThenInclude(join => join.Student)
-          .FirstOrDefault(class => class.ClassId == id);
-      return View(thisClass);
+          .FirstOrDefault(course => course.CourseId == id);
+      return View(thisCourse);
     }
 
     public ActionResult Edit(int id)
     {
-      var thisClass = _db.Classes.FirstOrDefault(class => class.ClassId == id);
-      return  View(thisclass);
+      var thisCourse = _db.Courses.FirstOrDefault(course => course.CourseId == id);
+      return  View(thisCourse);
     }
 
     [HttpPost]
-    public ActionResult Edit(Class class)
+    public ActionResult Edit(Course course)
     {
-      _db.Entry(class).State = EntityState.Modified;
+      _db.Entry(course).State = EntityState.Modified;
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
 
     public ActionResult Delete(int id)
     {
-      var thisClass = _db.Classes.FirstOrDefault(class => class.ClassId == id);
-      return View(thisClass);
+      var thisCourse = _db.Courses.FirstOrDefault(course => course.CourseId == id);
+      return View(thisCourse);
     }
 
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
-      var thisClass = _db.Classes.FirstOrDefault(class => class.ClassId == id);
-      _db.Classes.Remove(thisClass);
+      var thisCourse = _db.Courses.FirstOrDefault(course => course.CourseId == id);
+      _db.Courses.Remove(thisCourse);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }

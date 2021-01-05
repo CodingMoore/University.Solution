@@ -1,4 +1,4 @@
-@* @{
+@{
   Layout = "_Layout";
 }
 
@@ -11,9 +11,9 @@
     @Html.LabelFor(model => model.StudentName)
     @Html.TextBoxFor(model => model.StudentName)
 
-    @Html.Label("Select Class")
-    @Html.DropDownList("CLassId")
+    @Html.Label("Select Course")
+    @Html.DropDownList("CourseId")
 
     <input type="submit" value="Add new student" class="btn btn-default" />
 }
-<p>@Html.ActionLink("Show all students", "Index")</p> *@
+<p>@Html.ActionLink("Show all students", "Index")</p>

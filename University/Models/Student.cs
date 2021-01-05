@@ -6,12 +6,12 @@ namespace University.Models
   {
     public Student()
     {
-      this.Classes = new HashSet<ClassStudent>();
+      this.Courses = new HashSet<CourseStudent>();
     }
 
     public int StudentId { get; set; }
     public string StudentName { get; set; }
 
-    public ICollection<ClassStudent> Classes { get; }
+    public ICollection<CourseStudent> Courses { get; }
   }
 }  

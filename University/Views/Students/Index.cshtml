@@ -1,9 +1,9 @@
-@* @{
+@{
   Layout = "_Layout";
 }
 
 @using University.Models;
-@model List<University.Models.Classes>;
+@model List<University.Models.Student>;
 
 <h1>Students</h1>
 
@@ -14,8 +14,8 @@
 
 @foreach (Student student in Model)
 {
-  <li>@Html.ActionLink($"{student.StudentName}", "Student Name", new { id = student.StudentId }) | @student.Class.ClassName</li>
+  <li>@Html.ActionLink($"{student.StudentName}", "Student Name", new { id = student.StudentId })</li>
 }
 
 <p>@Html.ActionLink("Add new student", "Create")</p>
-<p>@Html.ActionLink("Home", "Index", "Home")</p> *@
+<p>@Html.ActionLink("Home", "Index", "Home")</p>
