@@ -15,29 +15,28 @@ This project was created to help us further our knowledge with using join statem
 * C# and .Net Core installed on your local machine. (Developed on .Net Core v2.2.4)
 * Console/Terminal access.
 * Code Editor like [Visual Studio Code](https://code.visualstudio.com/)
+* MySQL Community Server
+* MySQL Workbench
 
 
 ## **Installation Instructions**
-Download .Net Core from the following link and follow the installation instructions.
-https://dotnet.microsoft.com/download
+Download [.Net Core](https://dotnet.microsoft.com/download) and follow the installation instructions for your computer's
+operating system.
 
 
-### **Installing C#, .NET, dotnet script,**
+
+### **Installing C#, .NET**
 Install C# and .Net according to your operating system below:
 
 **For Mac**
 1. Download this .NET Core SDK Software Development Kit. 
 2. Open the .pkg file. This will launch an installer which will walk you through installation steps. Use the default settings the installer suggests.
-3. Confirm the installation is successful by opening your terminal and running the command <code>$ dotnet --version</code>, which should return the correct version number.
+3. Confirm the installation is successful by opening your terminal and running the command <code>dotnet --version</code>, which should return the correct version number.
 
 **For Windows (10+)**
 1. Download either the the 64-bit .NET Core SDK Software Development Kit
 2. Open the file and follow the steps provided by the installer for your OS.
 3. Confirm the installation is successful by opening a new Windows PowerShell window and running the command <code>dotnet --version</code> You should see a response with the correct version number.
-
-Install dotnet script with the following terminal command dotnet tool install: 
-
-<code>dotnet-script</code>
 
 **My SQL Installation Below** 
 
@@ -104,22 +103,14 @@ Install MySQL Workbench to Applications folder.
 Then open MySQL Workbench and select the Local instance 3306 server. You will need to enter the password you set. (We used epicodus.) If it connects, you're all set.
 
 
-### **Opening Locally** ###
+### **Install/Setup Project** ###
 
 **Option 1** (download zip file)
 1) Copy and paste the following GitHub project link into your web browser's url bar and hit enter/return. https://github.com/RMGit-it/University.Solution.git
 2) Download a .zip copy the repository by clicking on the large green "Code" button near the upper right corner of the screen.
 3) Right click the .zip file and extract(unzip) it's contents.
 4) Open your computer's terminal/console, and navigate to folder called "__University.Solution__". 
-5) Once there, type the following code and hit enter/return to install the necessary dependencies. 
 
-    <code>dotnet restore</code>
-
-6) Once the dependencies have installed, you can type the follow code to launch the program...
-
-    <code>dotnet run</code>
-
-    The program should launch using your default web browser at URL: localhost:5000.
 
 **Option 2** (via git console/terminal)
 1) Open your Git enabled terminal/console and navigate to a directory that you wish to download this project to.
@@ -129,16 +120,76 @@ Then open MySQL Workbench and select the Local instance 3306 server. You will ne
 
 3) Once the project has finished downloading, use the terminal/console to navigate to the "__University.Solution__" folder of the project.
 
-4) Once there, type the following code and hit enter/return to install the necessary dependencies. 
 
-    <code>dotnet restore</code>
-    
+**Setup Database Connection**
 
-5) Once the dependencies have installed, you can type the follow code to launch the program...
+Create a new file in the root directory of the __University.Solution/University__ directory named "appsettings.json".  Copy and past the following code inside of the file.
 
-    <code>dotnet run</code>
+```
+{
+  "ConnectionStrings": {
+      "DefaultConnection": "Server=localhost;Port=3306;database=university;uid=YourId;pwd=YourPassword;"
+  }
+}
+```
+Replace "YourId" and "YourPassword" in the code above with the user id and user password you use for logging into MySQL Workbench.  Save the "appsettings.json" file.
 
-    The program should launch using your default web browser at URL: localhost:5000.
+Type the following code and hit enter/return to install the necessary dependencies. 
+
+<code>dotnet restore</code>
+
+Once the dependencies have installed, type the following commands into your console, hitting enter/return after each.
+
+<code>dotnet ef migrations add Initial</code>
+
+<code>dotnet ef database update</code>
+
+
+You can now type the follow code to launch the program...
+
+<code>dotnet run</code>
+
+The program should launch using your default web browser at URL: localhost:5000.
+
+## **SQL Schema**
+```
+CREATE DATABASE  IF NOT EXISTS `university` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `university`;
+
+DROP TABLE IF EXISTS `__efmigrationshistory`;
+CREATE TABLE `__efmigrationshistory` (
+  `MigrationId` varchar(95) NOT NULL,
+  `ProductVersion` varchar(32) NOT NULL,
+  PRIMARY KEY (`MigrationId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+DROP TABLE IF EXISTS `courses`;
+CREATE TABLE `courses` (
+  `CourseId` int NOT NULL AUTO_INCREMENT,
+  `CourseName` longtext,
+  PRIMARY KEY (`CourseId`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+DROP TABLE IF EXISTS `coursestudent`;
+CREATE TABLE `coursestudent` (
+  `CourseStudentId` int NOT NULL AUTO_INCREMENT,
+  `CourseId` int NOT NULL,
+  `StudentId` int NOT NULL,
+  PRIMARY KEY (`CourseStudentId`),
+  KEY `IX_CourseStudent_CourseId` (`CourseId`),
+  KEY `IX_CourseStudent_StudentId` (`StudentId`),
+  CONSTRAINT `FK_CourseStudent_Courses_CourseId` FOREIGN KEY (`CourseId`) REFERENCES `courses` (`CourseId`) ON DELETE CASCADE,
+  CONSTRAINT `FK_CourseStudent_Students_StudentId` FOREIGN KEY (`StudentId`) REFERENCES `students` (`StudentId`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+DROP TABLE IF EXISTS `students`;
+CREATE TABLE `students` (
+  `StudentId` int NOT NULL AUTO_INCREMENT,
+  `StudentName` longtext,
+  PRIMARY KEY (`StudentId`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+```
+
 
 ## **Usage / Examples**
 
@@ -161,7 +212,7 @@ There are no known bugs
 * dotnet script, REPL
   
 ## **Authors and Contributors**
-Authored by: Randel Moore, Ryland Adams, Svea Wade & Sarah Gilbert
+Authored by: Randel Moore, Ryland Adams, David Sterry, Svea Wade & Sarah Gilbert
 
 ## **Contact**
 RMGit.it@gmail.com
@@ -172,8 +223,11 @@ svealinneawade@gmail.com
 
 sarahgilbert064@gmail.com
 
+sterry.david@gmail.com
+
 ## **License**
 
 GPLv3
 
-Copyright © 2020 Randel Moore, Ryland Adams, Svea Wade & Sarah Gilbert
+Copyright © 2020 Randel Moore, Ryland Adams, Svea Wade, Sarah Gilbert & David Sterry
+
