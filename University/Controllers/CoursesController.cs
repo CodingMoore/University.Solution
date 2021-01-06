@@ -36,7 +36,7 @@ namespace University.Controllers
     public ActionResult Details(int id)
     {
       var thisCourse = _db.Courses //return course name and id 
-          .Include(course => course.Students) //find students(JoinEntries) related to the course
+          .Include(course => course.JoinEntries) //find students(JoinEntries) related to the course
           .ThenInclude(join => join.Student) //With all join entries add the related student 
           .FirstOrDefault(course => course.CourseId == id); // find the course that matches the ID
       return View(thisCourse);
@@ -51,9 +51,9 @@ namespace University.Controllers
     [HttpPost]
     public ActionResult Edit(Course course) //course is an object that contains all properties, not just the ID
     {
-      _db.Entry(course).State = EntityState.Modified;
-      _db.SaveChanges();
-      return RedirectToAction("Index");
+      _db.Entry(course).State = EntityState.Modified; // holding the information in a bucket
+      _db.SaveChanges();// pour the bucket into the database
+      return RedirectToAction("Index"); //returning to index page in courses
     }
 
     public ActionResult Delete(int id)

@@ -8,7 +8,7 @@
 <hr />
 <h3>@Html.DisplayNameFor(model => model.CourseName): @Html.DisplayFor(model => model.CourseName)</h3>
 
-@if(@Model.Students.Count == 0)
+@if(@Model.JoinEntries.Count == 0)
 {
   <p>This course does not contain any students</p>
 }
@@ -16,7 +16,7 @@ else
 {
   <h4>Students the course contains:</h4>
   <ul>
-  @foreach(var join in Model.Students)
+  @foreach(var join in Model.JoinEntries)
   {
     <li>@join.Student.StudentName</li>
   }

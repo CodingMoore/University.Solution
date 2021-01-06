@@ -8,7 +8,7 @@
 <hr />
 <h3>@Html.DisplayNameFor(model => model.StudentName): @Html.DisplayFor(model => model.StudentName)</h3>
 
-@if(Model.Courses.Count == 0)
+@if(Model.JoinEntries.Count == 0)
 {
   <p>This Student does not belong to any courses</p>
 }
@@ -24,10 +24,10 @@ else
 }
 
   <ul>
-  @foreach(var join in Model.Courses)
+  @foreach(var join in Model.JoinEntries)
   {
     <li>@join.Course.CourseName</li>
-    @using (Html.BeginForm("Delete", "Students"))
+    @using (Html.BeginForm("DeleteCourse", "Students"))
     {
       @Html.Hidden("joinId", @join.CourseStudentId)
       <input type="submit" value="Delete"/>

@@ -4,11 +4,13 @@
 
 @model University.Models.Course
 
-<h4>Add a new course</h4>
+<h4>Edit a course</h4>
 @using (Html.BeginForm())
 {
+    @Html.HiddenFor(model => model.CourseId) 
+
     @Html.LabelFor(model => model.CourseName)
-    @Html.TextBoxFor(model => model.CourseName)
-    <input type="submit" value="Add new course" />
+    @Html.EditorFor(model => model.CourseName)
+    <input type="submit" value="Edit" />
 }
 <p>@Html.ActionLink("Show all courses", "Index")</p>

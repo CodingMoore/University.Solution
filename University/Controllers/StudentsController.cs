@@ -48,7 +48,7 @@ namespace University.Controllers
     public ActionResult Details(int id)
     {
       var thisStudent = _db.Students
-          .Include(student => student.Courses)
+          .Include(student => student.JoinEntries)
           .ThenInclude(join => join.Course)
           .FirstOrDefault(student => student.StudentId == id);
       return View(thisStudent);
@@ -57,7 +57,7 @@ namespace University.Controllers
     public ActionResult Edit(int id)
     {
       var thisStudent = _db.Students.FirstOrDefault(student => student.StudentId == id);
-      ViewBag.CourseId = new SelectList(_db.Courses, "CourseId", "CourseName");
+      ViewBag.CourseId = new SelectList(_db.Courses, "CourseId", "CourseName"); // ViewBag only transfers data from controller to view
       return View(thisStudent);
     }
     
@@ -68,9 +68,9 @@ namespace University.Controllers
       {
         _db.CourseStudent.Add(new CourseStudent() { CourseId = CourseId, StudentId = student.StudentId });
       }
-        _db.Entry(student).State=EntityState.Modified;
-        _db.SaveChanges();
-        return RedirectToAction("Index");
+      _db.Entry(student).State=EntityState.Modified;
+      _db.SaveChanges();
+      return RedirectToAction("Index");
     }
 
     public ActionResult AddCourse(int id)
