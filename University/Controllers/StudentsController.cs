@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 
 namespace University.Controllers
 {
@@ -83,13 +84,21 @@ namespace University.Controllers
     [HttpPost]
     public ActionResult AddCourse(Student student, int CourseId)
     {
-      if(CourseId != 0)
+      if (CourseId != 0)
+      // Check if CourseId is valid
       {
-        _db.CourseStudent.Add(new CourseStudent() { CourseId = CourseId, StudentId = student.StudentId});
+        var returnedJoin = _db.CourseStudent.Any(join => join.StudentId == student.StudentId && join.CourseId == CourseId);
+          Console.WriteLine(returnedJoin);
+        // Check if "Any" of this relationship exists, returns a bool
+        if (!returnedJoin) 
+        {
+        // if the returnedJoin for that relationship if false, then add the relationship
+          _db.CourseStudent.Add(new CourseStudent() { CourseId = CourseId, StudentId = student.StudentId });
+        }
       }
-        _db.SaveChanges();
-        return RedirectToAction("Index");
-    }
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }   
 
     public ActionResult Delete(int id)
     {
@@ -114,6 +123,10 @@ namespace University.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+
+
+
+
 
   }
 }
