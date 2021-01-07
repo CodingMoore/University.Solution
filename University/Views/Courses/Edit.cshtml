@@ -7,10 +7,22 @@
 <h4>Edit a course</h4>
 @using (Html.BeginForm())
 {
-    @Html.HiddenFor(model => model.CourseId) 
+    @Html.HiddenFor(model => model.CourseId)
+    @* @Html.HiddenFor(model => model.StartDate) *@
 
     @Html.LabelFor(model => model.CourseName)
     @Html.EditorFor(model => model.CourseName)
+
+    @* @Html.DisplayNameFor(model => model.StartDate) 
+    @Html.EditorFor(model => model.StartDate) *@
+    
+    @Html.LabelFor(model => model.StartDate)
+    @Html.EditorFor(model => model.StartDate)
+  
+
     <input type="submit" value="Edit" />
 }
 <p>@Html.ActionLink("Show all courses", "Index")</p>
+
+
+@* @Html.TextBoxFor( m => m.Email, new { placeholder = "Email", @class = "form-input" } ) *@
