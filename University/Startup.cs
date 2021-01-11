@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using University.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace University
 {
@@ -27,6 +28,10 @@ namespace University
       services.AddEntityFrameworkMySql()
           .AddDbContext<UniversityContext>(options => options
           .UseMySql(Configuration["ConnectionStrings:DefaultConnection"]));
+
+      services.AddIdentity<ApplicationUser, IdentityRole>()
+              .AddEntityFrameworkStores<UniversityContext>()
+              .AddDefaultTokenProviders();
     }
 
     public void Configure(IApplicationBuilder app)
@@ -34,6 +39,8 @@ namespace University
       app.UseStaticFiles();
 
       app.UseDeveloperExceptionPage();
+
+      app.UseAuthentication();
 
       app.UseMvc(routes =>
       {
